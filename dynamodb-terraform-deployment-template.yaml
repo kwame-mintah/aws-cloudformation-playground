@@ -14,17 +14,17 @@ Parameters:
   ReadCapacityUnits:
     Description: Provisioned read throughput
     Type: Number
-    Default: 5
-    MinValue: 5
-    MaxValue: 10000
+    Default: "5"
+    MinValue: "5"
+    MaxValue: "10000"
     ConstraintDescription: must be between 5 and 10000
 
   WriteCapacityUnits:
     Description: Provisioned write throughput
     Type: Number
-    Default: 10
-    MinValue: 5
-    MaxValue: 10000
+    Default: "10"
+    MinValue: "5"
+    MaxValue: "10000"
     ConstraintDescription: must be between 5 and 10000
 
 Resources:
@@ -39,8 +39,6 @@ Resources:
         WriteCapacityUnits: !Ref WriteCapacityUnits
       AttributeDefinitions:
         - AttributeName: "UUID"
-          AttributeType: "S"
-        - AttributeName: "Message"
           AttributeType: "S"
         - AttributeName: "DateReceived"
           AttributeType: "S"
