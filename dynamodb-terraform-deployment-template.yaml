@@ -45,8 +45,12 @@ Resources:
         - AttributeName: "DateReceived"
           AttributeType: "S"
       KeySchema:
-        - AttributeName: UUID
+        - AttributeName: "UUID"
           KeyType: "HASH"
+        - AttributeName: "Message"
+          KeyType: "RANGE"
+        - AttributeName: "DateReceived"
+          KeyType: "RANGE"
       Tags:
         - Key: Template Location
           Value: https://github.com/kwame-mintah/aws-cloudformation-playground
