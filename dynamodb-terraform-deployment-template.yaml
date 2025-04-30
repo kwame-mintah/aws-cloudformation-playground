@@ -10,34 +10,22 @@ Description: A very basic CloudFormation template to be used by Terraform.
 Metadata:
   License: The Unlicense
 
-# Parameters:
-#   ReadCapacityUnits:
-#     Description: Provisioned read throughput
-#     Type: Number
-#     Default: "5"
-#     MinValue: "5"
-#     MaxValue: "10000"
-#     ConstraintDescription: must be between 5 and 10000
-
-#   WriteCapacityUnits:
-#     Description: Provisioned write throughput
-#     Type: Number
-#     Default: "10"
-#     MinValue: "5"
-#     MaxValue: "10000"
-#     ConstraintDescription: must be between 5 and 10000
+Parameters:
+  DynamoDBTableName:
+    Description: The name of the table.
+    Type: String
+    AllowedPattern: "[a-zA-Z0-9]*"
+    MinLength: "1"
+    MaxLength: "2048"
+    ConstraintDescription: must contain only alphanumberic characters
 
 Resources:
   DynamoDBTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: "cfn-terraform-table"
+      TableName: !Ref DynamoDBTableName
       BillingMode: "PAY_PER_REQUEST"
       TableClass: "STANDARD"
-      # If you set BillingMode as PROVISIONED, you must specify this property.
-      # ProvisionedThroughput:
-      #   ReadCapacityUnits: !Ref ReadCapacityUnits
-      #   WriteCapacityUnits: !Ref WriteCapacityUnits
       AttributeDefinitions:
         - AttributeName: "UUID"
           AttributeType: "S"
