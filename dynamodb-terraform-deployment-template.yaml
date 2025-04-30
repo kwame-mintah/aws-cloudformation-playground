@@ -1,0 +1,28 @@
+#---------------------------------------------------
+# DynamoDB Template to be deployed by Terraform.
+#---------------------------------------------------
+# CloudFormation Template
+# https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-formats.html
+AWSTemplateFormatVersion: '2010-09-09'
+Description: A very basic CloudFormation template to be used by Terraform.
+Resources:
+  DynamoDBTable:
+   Type: AWS::DynamoDB::Table
+   Properties:
+     TableName: 'cfn-terraform-table'
+     BillingMode: 'PROVISIONED'
+     AttributeDefinitions:
+        - AttributeName: 'UUID'
+          AttributeType: 'S'
+        - AttributeName: 'Message'
+          AttributeType: 'S'
+        - AttributeName: 'DateReceived'
+          AttributeType: 'S'
+     KeySchema:
+       - AttributeName: UUID
+         KeyType: 'HASH'
+     Tags:
+       - Key: Template Location
+         Value: https://github.com/kwame-mintah/aws-cloudformation-playground
+       - Key: IaC Provisioned
+         Value: "False"
