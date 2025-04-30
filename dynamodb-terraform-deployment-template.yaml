@@ -1,28 +1,54 @@
+---
 #---------------------------------------------------
 # DynamoDB Template to be deployed by Terraform.
 #---------------------------------------------------
 # CloudFormation Template
 # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-formats.html
-AWSTemplateFormatVersion: '2010-09-09'
+AWSTemplateFormatVersion: "2010-09-09"
 Description: A very basic CloudFormation template to be used by Terraform.
+
+Metadata:
+  License: The Unlicense
+
+Parameters:
+  ReadCapacityUnits:
+    Description: Provisioned read throughput
+    Type: Number
+    Default: 5
+    MinValue: 5
+    MaxValue: 10000
+    ConstraintDescription: must be between 5 and 10000
+
+  WriteCapacityUnits:
+    Description: Provisioned write throughput
+    Type: Number
+    Default: 10
+    MinValue: 5
+    MaxValue: 10000
+    ConstraintDescription: must be between 5 and 10000
+
 Resources:
   DynamoDBTable:
-   Type: AWS::DynamoDB::Table
-   Properties:
-     TableName: 'cfn-terraform-table'
-     BillingMode: 'PROVISIONED'
-     AttributeDefinitions:
-        - AttributeName: 'UUID'
-          AttributeType: 'S'
-        - AttributeName: 'Message'
-          AttributeType: 'S'
-        - AttributeName: 'DateReceived'
-          AttributeType: 'S'
-     KeySchema:
-       - AttributeName: UUID
-         KeyType: 'HASH'
-     Tags:
-       - Key: Template Location
-         Value: https://github.com/kwame-mintah/aws-cloudformation-playground
-       - Key: IaC Provisioned
-         Value: "False"
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: "cfn-terraform-table"
+      BillingMode: "PROVISIONED"
+      TableClass: "STANDARD"
+      ProvisionedThroughput:
+        ReadCapacityUnits: !Ref ReadCapacityUnits
+        WriteCapacityUnits: !Ref WriteCapacityUnits
+      AttributeDefinitions:
+        - AttributeName: "UUID"
+          AttributeType: "S"
+        - AttributeName: "Message"
+          AttributeType: "S"
+        - AttributeName: "DateReceived"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: UUID
+          KeyType: "HASH"
+      Tags:
+        - Key: Template Location
+          Value: https://github.com/kwame-mintah/aws-cloudformation-playground
+        - Key: IaC Provisioned
+          Value: "False"
