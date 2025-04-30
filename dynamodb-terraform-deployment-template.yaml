@@ -10,33 +10,34 @@ Description: A very basic CloudFormation template to be used by Terraform.
 Metadata:
   License: The Unlicense
 
-Parameters:
-  ReadCapacityUnits:
-    Description: Provisioned read throughput
-    Type: Number
-    Default: "5"
-    MinValue: "5"
-    MaxValue: "10000"
-    ConstraintDescription: must be between 5 and 10000
+# Parameters:
+#   ReadCapacityUnits:
+#     Description: Provisioned read throughput
+#     Type: Number
+#     Default: "5"
+#     MinValue: "5"
+#     MaxValue: "10000"
+#     ConstraintDescription: must be between 5 and 10000
 
-  WriteCapacityUnits:
-    Description: Provisioned write throughput
-    Type: Number
-    Default: "10"
-    MinValue: "5"
-    MaxValue: "10000"
-    ConstraintDescription: must be between 5 and 10000
+#   WriteCapacityUnits:
+#     Description: Provisioned write throughput
+#     Type: Number
+#     Default: "10"
+#     MinValue: "5"
+#     MaxValue: "10000"
+#     ConstraintDescription: must be between 5 and 10000
 
 Resources:
   DynamoDBTable:
     Type: AWS::DynamoDB::Table
     Properties:
       TableName: "cfn-terraform-table"
-      BillingMode: "PROVISIONED"
+      BillingMode: "PAY_PER_REQUEST"
       TableClass: "STANDARD"
-      ProvisionedThroughput:
-        ReadCapacityUnits: !Ref ReadCapacityUnits
-        WriteCapacityUnits: !Ref WriteCapacityUnits
+      # If you set BillingMode as PROVISIONED, you must specify this property.
+      # ProvisionedThroughput:
+      #   ReadCapacityUnits: !Ref ReadCapacityUnits
+      #   WriteCapacityUnits: !Ref WriteCapacityUnits
       AttributeDefinitions:
         - AttributeName: "UUID"
           AttributeType: "S"
@@ -52,3 +53,8 @@ Resources:
           Value: https://github.com/kwame-mintah/aws-cloudformation-playground
         - Key: IaC Provisioned
           Value: "False"
+
+Outputs:
+  TableName:
+    Description: Table name of the newly created DynamoDB table
+    Value: !Ref DynamoDBTable
