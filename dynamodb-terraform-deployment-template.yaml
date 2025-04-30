@@ -47,8 +47,6 @@ Resources:
       KeySchema:
         - AttributeName: "UUID"
           KeyType: "HASH"
-        - AttributeName: "Message"
-          KeyType: "RANGE"
         - AttributeName: "DateReceived"
           KeyType: "RANGE"
       Tags:
