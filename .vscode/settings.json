@@ -1,0 +1,5 @@
+{
+  "yaml.schemas": {
+    "https://raw.githubusercontent.com/aws-cloudformation/cfn-lint-visual-studio-code/cb52cac9d9d2204a4313f16305f0a6842414e2ca/schema/all-spec.json": "*-template.yaml"
+  }
+}
