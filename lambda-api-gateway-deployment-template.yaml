@@ -1,0 +1,60 @@
+---
+#---------------------------------------------------
+# Lambda & API Gateway Template to be deployed.
+#---------------------------------------------------
+# Requires capabilities: ["CAPABILITY_AUTO_EXPAND", "CAPABILITY_IAM"]
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: A very basic CloudFormation template to deploy a Serverless function.
+
+Metadata:
+  License: The Unlicense
+
+Parameters:
+  FunctionName:
+    Description: The name of the function.
+    Type: String
+    AllowedPattern: "[a-zA-Z0-9-]*"
+    MinLength: "1"
+    MaxLength: "140"
+    ConstraintDescription: Function name must contain only letters, numbers, hyphens, or underscores
+
+  DockerImageUri:
+    Description: The URI of the Amazon Elastic Container Registry (Amazon ECR).
+    Type: String
+    ConstraintDescription: Function name must contain only letters, numbers, hyphens, or underscores
+
+  DynamoDBTableName:
+    Description: The name of the table.
+    Type: String
+    AllowedPattern: "[a-zA-Z0-9-]*"
+    MinLength: "1"
+    MaxLength: "2048"
+    ConstraintDescription: must contain only alphanumeric characters
+
+Resources:
+  Function:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Ref FunctionName
+      PackageType: Image
+      ImageUri: !Ref DockerImageUri
+      Description: "A lambda deployed via CloudFormation."
+      MemorySize: 128
+      Environment:
+        Variables:
+          DYNAMODB_TABLE_NAME: !Ref DynamoDBTableName
+      Events:
+        Api:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref Api
+
+  Api:
+    Type: AWS::Serverless::HttpApi
+
+Outputs:
+  ApiUrl:
+    Description: The full URL of the endpoint.
+    Value:
+      Fn::Sub: "https://${Api}.execute-api.${AWS::Region}.${AWS::URLSuffix}/"
