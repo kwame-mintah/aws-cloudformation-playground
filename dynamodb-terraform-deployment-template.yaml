@@ -17,7 +17,7 @@ Parameters:
     AllowedPattern: "[a-zA-Z0-9-]*"
     MinLength: "1"
     MaxLength: "2048"
-    ConstraintDescription: must contain only alphanumberic characters
+    ConstraintDescription: must contain only alphanumeric characters
 
 Resources:
   DynamoDBTable:
@@ -27,12 +27,12 @@ Resources:
       BillingMode: "PAY_PER_REQUEST"
       TableClass: "STANDARD"
       AttributeDefinitions:
-        - AttributeName: "UUID"
+        - AttributeName: "GUID"
           AttributeType: "S"
         - AttributeName: "DateReceived"
           AttributeType: "S"
       KeySchema:
-        - AttributeName: "UUID"
+        - AttributeName: "GUID"
           KeyType: "HASH"
         - AttributeName: "DateReceived"
           KeyType: "RANGE"
