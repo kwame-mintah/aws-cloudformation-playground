@@ -16,7 +16,7 @@ The following tools are quite helpful when developing locally, [`cfn-lint`](http
 
 ### Terraform
 
-Below is an example of using the [lambda-api-gateway-deployment-template](dynamodb-terraform-deployment-template.yaml) in Terraform, taken from my [
+Below is an example of using the [dynamodb-terraform-deployment-template](dynamodb-terraform-deployment-template.yaml) in Terraform, taken from my [
 terraform-aws-certified-devops-engineer-professional
 ](https://github.com/kwame-mintah/terraform-aws-certified-devops-engineer-professional/blob/56865aa65630b2d2955d74e42b5bdb52ed601b96/cloudformation.tf#L4-L34) repository.
 
