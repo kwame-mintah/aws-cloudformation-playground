@@ -51,8 +51,9 @@ Resources:
             ApiId: !Ref Api
       Policies:
         - Version: "2012-10-17"
+          PolicyName: AllowDynamoDBPermissions
           Statement:
-            - Effect: AllowDynamoDBPermissions
+            - Effect: Allow
               Action:
                 - dynamodb:Scan
                 - dynamodb:GetItem
