@@ -5,7 +5,7 @@
 # Requires capabilities: ["CAPABILITY_AUTO_EXPAND", "CAPABILITY_IAM"]
 AWSTemplateFormatVersion: "2010-09-09"
 Transform: AWS::Serverless-2016-10-31
-Description: A very basic CloudFormation template to deploy a Serverless function.
+Description: A very basic CloudFormation template to deploy a Serverless function and give access to a DynamoDB Table.
 
 Metadata:
   License: The Unlicense
@@ -52,7 +52,7 @@ Resources:
       Policies:
         - Version: "2012-10-17"
           Statement:
-            - Effect: Allow
+            - Effect: AllowDynamoDBPermissions
               Action:
                 - dynamodb:Scan
                 - dynamodb:GetItem
